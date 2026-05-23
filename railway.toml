@@ -4,3 +4,6 @@ buildCommand = "./mvnw clean package -DskipTests"
 
 [deploy]
 startCommand = "java -jar target/BillingSoftware-0.0.1-SNAPSHOT.jar"
+
+[variables]
+NIXPACKS_JDK_VERSION = "21"
