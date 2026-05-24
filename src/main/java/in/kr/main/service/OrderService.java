@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -113,11 +114,12 @@ public class OrderService {
 		orderRepository.delete(orderEntity);
 	}
 	
-	public List<OrderResponse> getLatestOrders(String email){
+	public Page<OrderResponse> getLatestOrders(String email, int page, int size){
 		UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User Not exists with this email" + email));
 		ShopEntity shop = userEntity.getShop();
-		List<OrderEntity> latestOrders = orderRepository.findAllByShopOrderByCreatedAtDesc(shop);
-		return latestOrders.stream().map(this::convertToResponse).collect(Collectors.toList());
+		Pageable pageable = PageRequest.of(page, size);
+		Page<OrderEntity> latestOrders = orderRepository.findAllByShopOrderByCreatedAtDesc(shop, pageable);
+		return latestOrders.map(this::convertToResponse);
 	}
 
 	public OrderResponse verifyPayment(PaymentVerificationRequest request) {

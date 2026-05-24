@@ -62,5 +62,4 @@ public class OrderEntity {
 		this.createdAt = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
 		this.orderId = "ORD"+System.currentTimeMillis();
 	}
-
 }

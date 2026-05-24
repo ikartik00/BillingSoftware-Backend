@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.kr.main.io.OrderRequest;
@@ -42,10 +43,10 @@ public class OrderController {
 	}
 	
 	@GetMapping("/all-orders")
-	public ResponseEntity<List<OrderResponse>> getLatestOrders(){
+	public ResponseEntity<List<OrderResponse>> getLatestOrders(@RequestParam int page, @RequestParam int size){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		List<OrderResponse> latestOrders = orderService.getLatestOrders(email);
+		List<OrderResponse> latestOrders = orderService.getLatestOrders(email, page,size);
 		return new ResponseEntity<List<OrderResponse>>(latestOrders, HttpStatus.OK);
 	}
 }
