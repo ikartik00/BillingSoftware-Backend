@@ -118,7 +118,11 @@ public class OrderService {
 		UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User Not exists with this email" + email));
 		ShopEntity shop = userEntity.getShop();
 		Pageable pageable = PageRequest.of(page, size);
+		long start = System.currentTimeMillis();
+
 		Page<OrderEntity> latestOrders = orderRepository.findAllByShopOrderByCreatedAtDesc(shop, pageable);
+
+		System.out.println(System.currentTimeMillis() - start);
 		return latestOrders.map(this::convertToResponse);
 	}
 
