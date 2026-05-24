@@ -2,6 +2,7 @@ package in.kr.main.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -43,10 +44,10 @@ public class OrderController {
 	}
 	
 	@GetMapping("/all-orders")
-	public ResponseEntity<List<OrderResponse>> getLatestOrders(@RequestParam int page, @RequestParam int size){
+	public ResponseEntity<Page<OrderResponse>> getLatestOrders(@RequestParam int page, @RequestParam int size){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		List<OrderResponse> latestOrders = orderService.getLatestOrders(email, page,size);
-		return new ResponseEntity<List<OrderResponse>>(latestOrders, HttpStatus.OK);
+		Page<OrderResponse> latestOrders = orderService.getLatestOrders(email, page,size);
+		return new ResponseEntity<Page<OrderResponse>>(latestOrders, HttpStatus.OK);
 	}
 }
