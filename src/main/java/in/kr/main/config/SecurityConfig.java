@@ -32,7 +32,7 @@ public class SecurityConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**") // sab endpoints ke liye
-						.allowedOrigins("https://billing-software-frontend-sooty.vercel.app") // frontend URL
+						.allowedOrigins("http://localhost:5173/") // frontend URL
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedHeaders("*")
 						.allowCredentials(true);
 			}
