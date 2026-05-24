@@ -1,6 +1,7 @@
 package in.kr.main.entity;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class OrderEntity {
 	private Double subTotal;
 	private Double tax;
 	private Double grandTotal;
+	
 	private LocalDateTime createdAt;
 	@ManyToOne
 	@JoinColumn(name = "shop_id", nullable = false)
@@ -57,7 +59,7 @@ public class OrderEntity {
 	
 	@PrePersist
 	protected void onCreate() {
-		this.createdAt = LocalDateTime.now();
+		this.createdAt = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
 		this.orderId = "ORD"+System.currentTimeMillis();
 	}
 
