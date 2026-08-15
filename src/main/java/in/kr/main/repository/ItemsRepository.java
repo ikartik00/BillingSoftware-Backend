@@ -28,4 +28,6 @@ public interface ItemsRepository extends JpaRepository<ItemsEntity, Long> {
 	long countByCategory(CategoryEntity entity);
 
 	boolean existsByItemId(String itemId);
+
+	boolean existsByNameIgnoreCase(String name);
 }

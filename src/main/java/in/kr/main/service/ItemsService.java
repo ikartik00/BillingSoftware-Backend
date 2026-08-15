@@ -40,7 +40,7 @@ public class ItemsService {
 		UserEntity adminUser = userRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("User not exists witth this email " +email));
 		CategoryEntity existingCategory = categoryRepository.findByCategoryId(request.getCategoryId()).orElseThrow(()-> new CategoryNotFoundException("Category Not Found with this id " + request.getCategoryId()));
 		ShopEntity shop =  adminUser.getShop();
-		if(itemsRepository.existsByNameIgnoreCaseAndCategoryId(request.getName(), existingCategory.getId())) {
+		if(itemsRepository.existsByNameIgnoreCase(request.getName())) {
 			throw new ItemAlreadyExistsException("item is already exists with this name " + request.getName());
 		}
 		if(!existingCategory.getShop().getShopId().equals(shop.getShopId())) {
